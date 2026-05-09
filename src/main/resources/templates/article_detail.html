@@ -12,7 +12,14 @@
             </div>
         </div>
     </div>
-    <button th:onclick="|location.href='@{/article/modify/{id}(id=${article.id})}'|">수정</button>
+    <div>
+        <button th:onclick="|location.href='@{/article/modify/{id}(id=${article.id})}'|">수정</button>
+        <form th:action="@{/article/delete/{id}(id=${article.id})}"
+              method="post"
+              style="display:inline;">
+            <button type="submit">삭제</button>
+        </form>
+    </div>
     <button onclick="location.href='/article/list'">목록</button>
 </div>
 </html>

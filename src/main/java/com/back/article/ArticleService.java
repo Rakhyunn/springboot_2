@@ -35,4 +35,8 @@ public class ArticleService {
             throw new RuntimeException("Article not found by id : " + id);
         }
     }
+
+    public void delete(int id) {
+        articleRepository.deleteById(id);
+    }
 }

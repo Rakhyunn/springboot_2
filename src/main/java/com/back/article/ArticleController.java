@@ -61,4 +61,10 @@ public class ArticleController {
         articleService.modify(id, articleForm.getTitle(), articleForm.getContent());
         return "redirect:/article/list";
     }
+
+    @PostMapping("article/delete/{id}")
+    public String deleteArticle(@PathVariable("id") int id) {
+        articleService.delete(id);
+        return "redirect:/article/list";
+    }
 }
