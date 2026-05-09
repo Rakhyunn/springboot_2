@@ -35,7 +35,7 @@ public class ArticleController {
         return "article_detail";
     }
 
-    @GetMapping("article/modify/{id}")
+    @GetMapping("/article/modify/{id}")
     public String modify(Model model, ArticleForm articleForm, @PathVariable("id") int id){
         Article article = articleService.findById(id);
         articleForm.setTitle(article.getTitle());
@@ -54,15 +54,16 @@ public class ArticleController {
     }
 
     @PostMapping("/article/modify/{id}")
-    public String modifyArticle(@Valid ArticleForm articleForm, BindingResult bindingResult, @PathVariable("id") int id) {
+    public String modifyArticle(Model model, @Valid ArticleForm articleForm, BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("article", articleService.findById(id));
             return "article_modify";
         }
         articleService.modify(id, articleForm.getTitle(), articleForm.getContent());
-        return "redirect:/article/list";
+        return "redirect:/article/detail/" + id;
     }
 
-    @PostMapping("article/delete/{id}")
+    @PostMapping("/article/delete/{id}")
     public String deleteArticle(@PathVariable("id") int id) {
         articleService.delete(id);
         return "redirect:/article/list";
