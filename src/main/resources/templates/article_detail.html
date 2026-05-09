@@ -12,6 +12,7 @@
             </div>
         </div>
     </div>
+    <button th:onclick="|location.href='@{/article/modify/{id}(id=${article.id})}'|">수정</button>
     <button onclick="location.href='/article/list'">목록</button>
 </div>
 </html>

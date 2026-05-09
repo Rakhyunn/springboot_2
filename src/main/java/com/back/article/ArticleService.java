@@ -16,6 +16,13 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
+    public void modify(int id, String title, String content) {
+        Article article = findById(id);
+        article.setTitle(title);
+        article.setContent(content);
+        articleRepository.save(article);
+    }
+
     public List<Article> findAll() {
         return articleRepository.findAll();
     }

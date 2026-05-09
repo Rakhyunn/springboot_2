@@ -35,12 +35,30 @@ public class ArticleController {
         return "article_detail";
     }
 
+    @GetMapping("article/modify/{id}")
+    public String modify(Model model, ArticleForm articleForm, @PathVariable("id") int id){
+        Article article = articleService.findById(id);
+        articleForm.setTitle(article.getTitle());
+        articleForm.setContent(article.getContent());
+        model.addAttribute(article);
+        return "article_modify";
+    }
+
     @PostMapping("/article/create")
     public String createArticle(@Valid ArticleForm articleForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
            return "article_create";
         }
         articleService.save(articleForm.getTitle(), articleForm.getContent());
+        return "redirect:/article/list";
+    }
+
+    @PostMapping("/article/modify/{id}")
+    public String modifyArticle(@Valid ArticleForm articleForm, BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "article_modify";
+        }
+        articleService.modify(id, articleForm.getTitle(), articleForm.getContent());
         return "redirect:/article/list";
     }
 }
