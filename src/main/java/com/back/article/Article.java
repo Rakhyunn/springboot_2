@@ -1,5 +1,6 @@
 package com.back.article;
 
+import com.back.Member.Member;
 import com.back.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,6 +18,8 @@ public class Article extends BaseEntity {
     private String title;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+    @ManyToOne
+    private Member author;
 
     public Article(String title, String content) {
         this.title = title;

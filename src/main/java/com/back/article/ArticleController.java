@@ -1,20 +1,26 @@
 package com.back.article;
 
+import com.back.Member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ArticleController {
     private final ArticleService articleService;
+    private final MemberService memberService;
 
     @GetMapping("/article/list")
     public String list(Model model) {
@@ -45,19 +51,23 @@ public class ArticleController {
     }
 
     @PostMapping("/article/create")
-    public String createArticle(@Valid ArticleForm articleForm, BindingResult bindingResult) {
+    public String createArticle(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
            return "article_create";
         }
-        articleService.save(articleForm.getTitle(), articleForm.getContent());
+        articleService.save(articleForm.getTitle(), articleForm.getContent(), memberService.findByUsername(principal.getName()));
         return "redirect:/article/list";
     }
 
     @PostMapping("/article/modify/{id}")
-    public String modifyArticle(Model model, @Valid ArticleForm articleForm, BindingResult bindingResult, @PathVariable("id") int id) {
+    public String modifyArticle(Model model, @Valid ArticleForm articleForm, BindingResult bindingResult, @PathVariable("id") int id, Principal principal) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("article", articleService.findById(id));
             return "article_modify";
+        }
+        Article article = articleService.findById(id);
+        if (!article.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         articleService.modify(id, articleForm.getTitle(), articleForm.getContent());
         return "redirect:/article/detail/" + id;

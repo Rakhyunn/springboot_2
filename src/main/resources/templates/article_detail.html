@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div th:if="${#authentication.name == article.author.username}">
         <button th:onclick="|location.href='@{/article/modify/{id}(id=${article.id})}'|">수정</button>
         <form th:action="@{/article/delete/{id}(id=${article.id})}"
               method="post"

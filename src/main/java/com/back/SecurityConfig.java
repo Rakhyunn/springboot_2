@@ -18,6 +18,8 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                        .requestMatchers("/article/create", "/article/modify/**", "/article/delete/**")
+                        .authenticated()
                         .requestMatchers("/**").permitAll())
                 .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(

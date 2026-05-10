@@ -1,5 +1,6 @@
 package com.back.article;
 
+import com.back.Member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,9 @@ import java.util.Optional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
-    public void save(String title, String content) {
+    public void save(String title, String content, Member author) {
         Article article = new Article(title, content);
+        article.setAuthor(author);
         articleRepository.save(article);
     }
 
