@@ -1,10 +1,9 @@
 package com.back.article;
 
-import com.back.Member.MemberService;
+import com.back.member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,7 +73,11 @@ public class ArticleController {
     }
 
     @PostMapping("/article/delete/{id}")
-    public String deleteArticle(@PathVariable("id") int id) {
+    public String deleteArticle(@PathVariable("id") int id, Principal principal) {
+        Article article = articleService.findById(id);
+        if (!article.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         articleService.delete(id);
         return "redirect:/article/list";
     }

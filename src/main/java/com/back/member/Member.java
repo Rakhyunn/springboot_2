@@ -1,4 +1,4 @@
-package com.back.Member;
+package com.back.member;
 
 import com.back.global.entity.BaseEntity;
 import jakarta.persistence.Column;

@@ -1,4 +1,4 @@
-package com.back.Member;
+package com.back.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

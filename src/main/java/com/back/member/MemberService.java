@@ -1,4 +1,4 @@
-package com.back.Member;
+package com.back.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

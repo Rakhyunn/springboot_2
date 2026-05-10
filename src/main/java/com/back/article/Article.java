@@ -1,13 +1,11 @@
 package com.back.article;
 
-import com.back.Member.Member;
+import com.back.member.Member;
 import com.back.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

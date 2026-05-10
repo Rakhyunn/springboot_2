@@ -1,6 +1,6 @@
 package com.back.article;
 
-import com.back.Member.Member;
+import com.back.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
