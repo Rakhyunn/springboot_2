@@ -35,7 +35,7 @@ public class MemberController {
         } catch (Exception e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", e.getMessage());
-            return "signup_form";
+            return "signup";
         }
         return "redirect:/";
     }

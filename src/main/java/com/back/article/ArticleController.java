@@ -27,6 +27,7 @@ public class ArticleController {
         List<Article> articleList = (keyword.isBlank())?
                 articleService.findAll() : articleService.search(keyword);
         model.addAttribute(articleList);
+        model.addAttribute("keyword", keyword);
         return "article_list";
     }
 
