@@ -41,4 +41,8 @@ public class ArticleService {
     public void delete(int id) {
         articleRepository.deleteById(id);
     }
+
+    public List<Article> search(String keyword) {
+        return articleRepository.findByTitleContaining(keyword);
+    }
 }
