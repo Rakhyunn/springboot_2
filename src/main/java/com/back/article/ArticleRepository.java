@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
-    List<Article> findByTitleContaining(String title);
+    List<Article> findByTitleContainingOrContentContaining(String title, String content);
 }

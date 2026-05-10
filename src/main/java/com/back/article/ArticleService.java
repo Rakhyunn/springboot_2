@@ -43,6 +43,6 @@ public class ArticleService {
     }
 
     public List<Article> search(String keyword) {
-        return articleRepository.findByTitleContaining(keyword);
+        return articleRepository.findByTitleContainingOrContentContaining(keyword, keyword);
     }
 }
